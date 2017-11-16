@@ -35,4 +35,13 @@ public class ConverterTests {
     }
 
     // TODO Add more test cases
+
+    //TEST CASES for ElbonianArabicConverter
+
+    //TEST CASES for toArabic
+
+    //TEST CASES for toElbonian
+
+
+
 }
