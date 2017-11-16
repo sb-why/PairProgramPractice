@@ -55,12 +55,38 @@ public class ConverterTests {
         ElbonianArabicConverter test1 = new ElbonianArabicConverter("X15");
     }
 
+    // input has space in the middle of number
+    //QUESTION is this the right type of exception
+    @Test(expected = MalformedNumberException.class)
+    public void checkMalformedNumber4() throws MalformedNumberException, ValueOutOfBoundsException {
+        ElbonianArabicConverter test1 = new ElbonianArabicConverter("I X");
+    }
+
+    // input has space in beginning of number (should be allowed)
+    //QUESTION where do we write the code to catch this problem and what kind of exception is it
+    @Test(expected = MalformedNumberException.class)
+    public void checkMalformedNumber5() throws MalformedNumberException, ValueOutOfBoundsException {
+        ElbonianArabicConverter test1 = new ElbonianArabicConverter(" IX");
+    }
+
+    // input is valid Arabic number but doesn't count as an Elbonian number
+    //QUESTION do we factor in negative numbers
+    //QUESTION d is multiple of 10, does it count for rule 1, for rule 2 does m count
+    //QUESTION does IV count as a number
+    @Test(expected = MalformedNumberException.class)
+    public void checkMalformedNumber6() throws MalformedNumberException, ValueOutOfBoundsException {
+        ElbonianArabicConverter test1 = new ElbonianArabicConverter("");
+    }
+
 
 
     //TEST CASES for toArabic
+    //checks if it can change elbonian number to arabic
+    @Test
+    public void checkElbonianToArabicSampleTest1() throws MalformedNumberException, ValueOutOfBoundsException {
+        ElbonianArabicConverter converter = new ElbonianArabicConverter("I");
+        assertEquals(converter.toArabic(), 1);
+    }
 
     //TEST CASES for toElbonian
-
-
-
 }

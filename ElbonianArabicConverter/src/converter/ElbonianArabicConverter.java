@@ -52,6 +52,7 @@ public class ElbonianArabicConverter {
      * @return An arabic value
      */
     public int toArabic() {
+        int finalValue = 1;
         // TODO Fill in the method's body
         return 1;
     }
