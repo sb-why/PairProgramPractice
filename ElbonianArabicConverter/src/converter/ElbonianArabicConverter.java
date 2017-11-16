@@ -3,6 +3,9 @@ package converter;
 import converter.exceptions.MalformedNumberException;
 import converter.exceptions.ValueOutOfBoundsException;
 
+import java.util.ArrayList;
+import java.util.LinkedList;
+
 /**
  * This class implements a converter that takes a string that represents a number in either the
  * Elbonian or Arabic numeral form. This class has methods that will return a value in the chosen form.
@@ -31,6 +34,14 @@ public class ElbonianArabicConverter {
     public ElbonianArabicConverter(String number) throws MalformedNumberException, ValueOutOfBoundsException {
 
         // TODO check to see if the number is valid, then set it equal to the string
+        boolean check1 = !number.matches("^[MmCXDLeIVw1234567890]");
+        if(check1){
+            throw new MalformedNumberException("the input does not qualified as an Elbonian numebr") ;
+        }
+        boolean check2 = number.matches("^[MmCXDLeIVw]") && number.matches("^[1234567890]");
+        if(check2){
+            throw new MalformedNumberException("the input cannot contain both Arabic numbers and Elbonian numbers") ;
+        }
         this.number = number;
     }
 
