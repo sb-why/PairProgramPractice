@@ -59,14 +59,14 @@ public class ConverterTests {
     //QUESTION is this the right type of exception
     @Test(expected = MalformedNumberException.class)
     public void checkMalformedNumber4() throws MalformedNumberException, ValueOutOfBoundsException {
-        ElbonianArabicConverter test1 = new ElbonianArabicConverter("I X");
+        ElbonianArabicConverter test1 = new ElbonianArabicConverter("X I");
     }
 
     // input has space in beginning of number (should be allowed)
     //QUESTION where do we write the code to catch this problem and what kind of exception is it
     @Test(expected = MalformedNumberException.class)
     public void checkMalformedNumber5() throws MalformedNumberException, ValueOutOfBoundsException {
-        ElbonianArabicConverter test1 = new ElbonianArabicConverter(" IX");
+        ElbonianArabicConverter test1 = new ElbonianArabicConverter(" XI");
     }
 
     // input is valid Arabic number but doesn't count as an Elbonian number
@@ -84,8 +84,8 @@ public class ConverterTests {
     //checks if it can change elbonian number to arabic
     @Test
     public void checkElbonianToArabicSampleTest1() throws MalformedNumberException, ValueOutOfBoundsException {
-        ElbonianArabicConverter converter = new ElbonianArabicConverter("I");
-        assertEquals(converter.toArabic(), 1);
+        ElbonianArabicConverter converter = new ElbonianArabicConverter("MDXI");
+        assertEquals(converter.toArabic(), 1511);
     }
 
     //TEST CASES for toElbonian

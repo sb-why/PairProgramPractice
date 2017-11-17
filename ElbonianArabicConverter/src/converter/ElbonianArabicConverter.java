@@ -4,7 +4,9 @@ import converter.exceptions.MalformedNumberException;
 import converter.exceptions.ValueOutOfBoundsException;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.Map;
 
 /**
  * This class implements a converter that takes a string that represents a number in either the
@@ -34,15 +36,35 @@ public class ElbonianArabicConverter {
     public ElbonianArabicConverter(String number) throws MalformedNumberException, ValueOutOfBoundsException {
 
         // TODO check to see if the number is valid, then set it equal to the string
-        boolean check1 = !number.matches("^[MmCXDLeIVw1234567890]");
+        boolean check1 = !number.matches("[MmCXDLeVIw1234567890]+");
         if(check1){
             throw new MalformedNumberException("the input does not qualified as an Elbonian numebr") ;
         }
-        boolean check2 = number.matches("^[MmCXDLeIVw]") && number.matches("^[1234567890]");
+        boolean check2 = number.matches("[MmCXDLeIVw]+") && number.matches("^[1234567890]+");
         if(check2){
             throw new MalformedNumberException("the input cannot contain both Arabic numbers and Elbonian numbers") ;
         }
         this.number = number;
+    }
+
+    public HashMap<Character,Integer> getCharFreq(String s) {
+        HashMap<Character,Integer> charFreq = new HashMap<Character,Integer>();
+        if (s != null) {
+            for (Character c : s.toCharArray()) {
+                Integer count = charFreq.get(c);
+                int newCount = (count==null ? 1 : count+1);
+                charFreq.put(c, newCount);
+            }
+        }
+        return charFreq;
+    }
+
+    public int charFreq(char c){
+        HashMap<Character,Integer> data = this.getCharFreq(this.number);
+        if(data.containsKey(c)){
+            return data.get(c);
+        }
+        return 0;
     }
 
     /**
@@ -52,9 +74,10 @@ public class ElbonianArabicConverter {
      * @return An arabic value
      */
     public int toArabic() {
-        int finalValue = 1;
-        // TODO Fill in the method's body
-        return finalValue;
+        int result = charFreq('M')*1000 + charFreq('C')*100 + charFreq('D')*500 +
+                charFreq('e')*400 + charFreq('X')*10 + charFreq('L')*50 +
+                charFreq('m')*40 + charFreq('I') + charFreq('V')*5 + charFreq('w')*4;
+        return result;
     }
 
     /**
