@@ -54,9 +54,12 @@ public class ElbonianArabicConverter {
             }
             //this.toElbonian();
         }catch (NumberFormatException e){
-            boolean check1 = !number.matches("[MmCXDLeVIw1234567890]+");
+            if(number.equals("")){
+                throw new MalformedNumberException("the input does not qualified as an Elbonian numebr");
+            }
+            boolean check1 = !number.matches("^M{0,3}D?e?C{0,3}L?m?X{0,3}V?w?I{0,3}$") && !number.matches("[1234567890]+");
             if(check1){
-                throw new MalformedNumberException("the input does not qualified as an Elbonian numebr") ;
+                throw new MalformedNumberException("the input does not qualified as an Elbonian numebr");
             }
             boolean check2 = number.matches("(.*)[MmCXDLeIVw]+(.*)") && number.matches("(.*)[1234567890]+(.*)");
             if(check2){

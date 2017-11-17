@@ -79,15 +79,10 @@ public class ConverterTests {
         ElbonianArabicConverter test1 = new ElbonianArabicConverter("");
     }
 
-
-
-
-
-
-
-
-
-
+    @Test(expected = MalformedNumberException.class)
+    public void checkMalformedNumber7() throws MalformedNumberException, ValueOutOfBoundsException {
+        ElbonianArabicConverter test1 = new ElbonianArabicConverter("$%^");
+    }
 
 
     //TEST CASES for toArabic
@@ -104,9 +99,6 @@ public class ConverterTests {
         ElbonianArabicConverter converter = new ElbonianArabicConverter("MMMDeCCCLmXXXVwIII");
         assertEquals(4332, converter.toArabic());
     }
-
-
-
     
 
     //TEST CASES for toElbonian
