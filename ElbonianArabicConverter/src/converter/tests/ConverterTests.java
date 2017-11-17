@@ -78,6 +78,13 @@ public class ConverterTests {
         ElbonianArabicConverter test1 = new ElbonianArabicConverter("");
     }
 
+
+    //checks if error is thrown when Arabic number is negative
+    @Test(expected = ValueOutOfBoundsException.class)
+    public void checkValueOutOfBounds0() throws MalformedNumberException, ValueOutOfBoundsException {
+        ElbonianArabicConverter test1 = new ElbonianArabicConverter("-10");
+    }
+
     //checks if error is thrown when Arabic number too small to be in bounds of Elbonian
     @Test(expected = ValueOutOfBoundsException.class)
     public void checkValueOutOfBounds1() throws MalformedNumberException, ValueOutOfBoundsException {
@@ -87,7 +94,7 @@ public class ConverterTests {
     //checks if error is thrown when Arabic number too big to be in bounds of Elbonian
     @Test(expected = ValueOutOfBoundsException.class)
     public void checkValueOutOfBounds2() throws MalformedNumberException, ValueOutOfBoundsException {
-        ElbonianArabicConverter test1 = new ElbonianArabicConverter("9999");
+        ElbonianArabicConverter test1 = new ElbonianArabicConverter("4333");
     }
 
 
@@ -104,6 +111,13 @@ public class ConverterTests {
         assertEquals(converter.toArabic(), 1511);
     }
 
+    // checks the max value
+    @Test
+    public void checkElbonianToArabicSampleTest2() throws MalformedNumberException, ValueOutOfBoundsException {
+        ElbonianArabicConverter converter = new ElbonianArabicConverter("MMMDeCCCLmXXXVwIII");
+        assertEquals(converter.toArabic(), 4332);
+    }
+
 
 
     
@@ -118,11 +132,6 @@ public class ConverterTests {
     }
 
 
-    //checks if error is thrown
-    @Test(expected = MalformedNumberException.class)
-    public void checkMalformedNumber5() throws MalformedNumberException, ValueOutOfBoundsException {
-        ElbonianArabicConverter test1 = new ElbonianArabicConverter(" XI ");
-    }
 
 
 

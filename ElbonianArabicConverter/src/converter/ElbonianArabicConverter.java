@@ -46,6 +46,10 @@ public class ElbonianArabicConverter {
         if(check2){
             throw new MalformedNumberException("the input cannot contain both Arabic numbers and Elbonian numbers") ;
         }
+        int arabic = parseInt(number);
+        if(parseInt(number)<=0 || parseInt(number)>4332){
+            throw new ValueOutOfBoundsException("the input Arabic number cannot be represented in the Elbonian number system");
+        }
         this.number = number;
     }
 
@@ -91,7 +95,7 @@ public class ElbonianArabicConverter {
         // TODO Fill in the method's body
         int numberAsInt = parseInt(number);
 
-        while (numberAsInt > 0 && numberAsInt < 9999){
+        while (numberAsInt > 0 && numberAsInt < 4332){
 
 
         }
