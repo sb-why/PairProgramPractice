@@ -8,6 +8,8 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Map;
 
+import static java.lang.Integer.parseInt;
+
 /**
  * This class implements a converter that takes a string that represents a number in either the
  * Elbonian or Arabic numeral form. This class has methods that will return a value in the chosen form.
@@ -87,7 +89,13 @@ public class ElbonianArabicConverter {
      */
     public String toElbonian() {
         // TODO Fill in the method's body
-        return "I";
-    }
+        int numberAsInt = parseInt(number);
 
+        while (numberAsInt > 0 && numberAsInt < 9999){
+
+
+        }
+        String result = "MDXMI";
+        return result;
+    }
 }

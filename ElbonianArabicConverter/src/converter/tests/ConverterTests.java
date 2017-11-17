@@ -78,6 +78,22 @@ public class ConverterTests {
         ElbonianArabicConverter test1 = new ElbonianArabicConverter("");
     }
 
+    //checks if error is thrown when Arabic number too small to be in bounds of Elbonian
+    @Test(expected = ValueOutOfBoundsException.class)
+    public void checkValueOutOfBounds1() throws MalformedNumberException, ValueOutOfBoundsException {
+        ElbonianArabicConverter test1 = new ElbonianArabicConverter("0");
+    }
+
+    //checks if error is thrown when Arabic number too big to be in bounds of Elbonian
+    @Test(expected = ValueOutOfBoundsException.class)
+    public void checkValueOutOfBounds2() throws MalformedNumberException, ValueOutOfBoundsException {
+        ElbonianArabicConverter test1 = new ElbonianArabicConverter("9999");
+    }
+
+
+
+
+
 
 
     //TEST CASES for toArabic
@@ -88,5 +104,26 @@ public class ConverterTests {
         assertEquals(converter.toArabic(), 1511);
     }
 
+
+
+    
+
     //TEST CASES for toElbonian
+
+    //checks if it can change arabic number to elbonian
+    @Test
+    public void checkArabictoElbonianSampleTest1() throws MalformedNumberException, ValueOutOfBoundsException {
+        ElbonianArabicConverter converter = new ElbonianArabicConverter("1511");
+        assertEquals(converter.toElbonian(), "MDXI");
+    }
+
+
+    //checks if error is thrown
+    @Test(expected = MalformedNumberException.class)
+    public void checkMalformedNumber5() throws MalformedNumberException, ValueOutOfBoundsException {
+        ElbonianArabicConverter test1 = new ElbonianArabicConverter(" XI ");
+    }
+
+
+
 }
