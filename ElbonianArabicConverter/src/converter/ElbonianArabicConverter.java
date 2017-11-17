@@ -108,9 +108,11 @@ public class ElbonianArabicConverter {
     public String toElbonian() throws ValueOutOfBoundsException {
         // TODO Fill in the method's body
         int numberAsInt = parseInt(number);
-
-
-        String result = "not a real result";
+        String result = "not a real result, ANSWER: ";
+        if(numberAsInt/1000 >= 3){
+           result = result+"MMM";
+           numberAsInt = numberAsInt%1000;
+        }
         return result;
     }
 }
