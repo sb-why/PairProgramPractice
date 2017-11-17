@@ -46,11 +46,16 @@ public class ElbonianArabicConverter {
         if(check2){
             throw new MalformedNumberException("the input cannot contain both Arabic numbers and Elbonian numbers") ;
         }
-        int arabic = parseInt(number);
-        if(parseInt(number)<=0 || parseInt(number)>4332){
-            throw new ValueOutOfBoundsException("the input Arabic number cannot be represented in the Elbonian number system");
-        }
+
         this.number = number;
+    }
+
+    public static Integer tryParse(String text) {
+        try {
+            return Integer.parseInt(text);
+        } catch (NumberFormatException e) {
+            return 0;
+        }
     }
 
     public HashMap<Character,Integer> getCharFreq(String s) {
@@ -91,13 +96,17 @@ public class ElbonianArabicConverter {
      *
      * @return An Elbonian value
      */
-    public String toElbonian() {
+    public String toElbonian() throws ValueOutOfBoundsException {
         // TODO Fill in the method's body
-        int numberAsInt = parseInt(number);
-
-        while (numberAsInt > 0 && numberAsInt < 4332){
-
-
+//        int numberAsInt = parseInt(number);
+//
+//        while (numberAsInt > 0 && numberAsInt < 4332){
+//
+//
+//        }
+        int arabic = tryParse(number);
+        if(arabic <= 0 || arabic > 4332){
+            throw new ValueOutOfBoundsException("the input Arabic number cannot be represented in the Elbonian number system");
         }
         String result = "MDXMI";
         return result;
