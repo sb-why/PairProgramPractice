@@ -15,13 +15,13 @@ public class ConverterTests {
     @Test
     public void ElbonianToArabicSampleTest() throws MalformedNumberException, ValueOutOfBoundsException {
         ElbonianArabicConverter converter = new ElbonianArabicConverter("1");
-        assertEquals(converter.toElbonian(), "I");
+        assertEquals("I", converter.toElbonian());
     }
 
     @Test
     public void ArabicToElbonianSampleTest() throws MalformedNumberException, ValueOutOfBoundsException {
         ElbonianArabicConverter converter = new ElbonianArabicConverter("I");
-        assertEquals(converter.toArabic(), 1);
+        assertEquals(1, converter.toArabic());
     }
 
     @Test(expected = MalformedNumberException.class)
@@ -64,9 +64,10 @@ public class ConverterTests {
 
     // input has space in beginning of number (should be allowed)
     //QUESTION where do we write the code to catch this problem and what kind of exception is it
-    @Test(expected = MalformedNumberException.class)
+    @Test
     public void checkMalformedNumber5() throws MalformedNumberException, ValueOutOfBoundsException {
         ElbonianArabicConverter test1 = new ElbonianArabicConverter(" XI");
+        assertEquals(11, test1.toArabic());
     }
 
     // input is valid Arabic number but doesn't count as an Elbonian number
@@ -79,23 +80,9 @@ public class ConverterTests {
     }
 
 
-    //checks if error is thrown when Arabic number is negative
-    @Test(expected = ValueOutOfBoundsException.class)
-    public void checkValueOutOfBounds0() throws MalformedNumberException, ValueOutOfBoundsException {
-        ElbonianArabicConverter test1 = new ElbonianArabicConverter("-10");
-    }
 
-    //checks if error is thrown when Arabic number too small to be in bounds of Elbonian
-    @Test(expected = ValueOutOfBoundsException.class)
-    public void checkValueOutOfBounds1() throws MalformedNumberException, ValueOutOfBoundsException {
-        ElbonianArabicConverter test1 = new ElbonianArabicConverter("0");
-    }
 
-    //checks if error is thrown when Arabic number too big to be in bounds of Elbonian
-    @Test(expected = ValueOutOfBoundsException.class)
-    public void checkValueOutOfBounds2() throws MalformedNumberException, ValueOutOfBoundsException {
-        ElbonianArabicConverter test1 = new ElbonianArabicConverter("4333");
-    }
+
 
 
 
@@ -108,14 +95,14 @@ public class ConverterTests {
     @Test
     public void checkElbonianToArabicSampleTest1() throws MalformedNumberException, ValueOutOfBoundsException {
         ElbonianArabicConverter converter = new ElbonianArabicConverter("MDXI");
-        assertEquals(converter.toArabic(), 1511);
+        assertEquals(1511, converter.toArabic());
     }
 
     // checks the max value
     @Test
     public void checkElbonianToArabicSampleTest2() throws MalformedNumberException, ValueOutOfBoundsException {
         ElbonianArabicConverter converter = new ElbonianArabicConverter("MMMDeCCCLmXXXVwIII");
-        assertEquals(converter.toArabic(), 4332);
+        assertEquals(4332, converter.toArabic());
     }
 
 
@@ -128,7 +115,28 @@ public class ConverterTests {
     @Test
     public void checkArabictoElbonianSampleTest1() throws MalformedNumberException, ValueOutOfBoundsException {
         ElbonianArabicConverter converter = new ElbonianArabicConverter("1511");
-        assertEquals(converter.toElbonian(), "MDXI");
+        assertEquals("MDXI", converter.toElbonian());
+    }
+
+    //checks if error is thrown when Arabic number is negative
+    @Test(expected = ValueOutOfBoundsException.class)
+    public void checkValueOutOfBounds0() throws MalformedNumberException, ValueOutOfBoundsException {
+        ElbonianArabicConverter test1 = new ElbonianArabicConverter("-10");
+        test1.toElbonian();
+    }
+
+    //checks if error is thrown when Arabic number too small to be in bounds of Elbonian
+    @Test(expected = ValueOutOfBoundsException.class)
+    public void checkValueOutOfBounds1() throws MalformedNumberException, ValueOutOfBoundsException {
+        ElbonianArabicConverter test1 = new ElbonianArabicConverter("0");
+        test1.toElbonian();
+    }
+
+    //checks if error is thrown when Arabic number too big to be in bounds of Elbonian
+    @Test(expected = ValueOutOfBoundsException.class)
+    public void checkValueOutOfBounds2() throws MalformedNumberException, ValueOutOfBoundsException {
+        ElbonianArabicConverter test1 = new ElbonianArabicConverter("4333");
+        test1.toElbonian();
     }
 
 

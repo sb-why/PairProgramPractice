@@ -38,25 +38,34 @@ public class ElbonianArabicConverter {
     public ElbonianArabicConverter(String number) throws MalformedNumberException, ValueOutOfBoundsException {
 
         // TODO check to see if the number is valid, then set it equal to the string
-        boolean check1 = !number.matches("[MmCXDLeVIw1234567890]+");
-        if(check1){
-            throw new MalformedNumberException("the input does not qualified as an Elbonian numebr") ;
-        }
-        boolean check2 = number.matches("[MmCXDLeIVw]+") && number.matches("^[1234567890]+");
-        if(check2){
-            throw new MalformedNumberException("the input cannot contain both Arabic numbers and Elbonian numbers") ;
-        }
+
+        number = number.trim();
+        check(number);
 
         this.number = number;
     }
 
-    public static Integer tryParse(String text) {
+    public void check(String number) throws MalformedNumberException, ValueOutOfBoundsException {
+        int convertedNumber = 0;
         try {
-            return Integer.parseInt(text);
-        } catch (NumberFormatException e) {
-            return 0;
+            convertedNumber = parseInt(number);
+            if(convertedNumber <= 0 || convertedNumber > 4332){
+                throw new ValueOutOfBoundsException("the input Arabic number cannot be represented in the Elbonian number system");
+            }
+            //this.toElbonian();
+        }catch (NumberFormatException e){
+            boolean check1 = !number.matches("[MmCXDLeVIw1234567890]+");
+            if(check1){
+                throw new MalformedNumberException("the input does not qualified as an Elbonian numebr") ;
+            }
+            boolean check2 = number.matches("(.*)[MmCXDLeIVw]+(.*)") && number.matches("(.*)[1234567890]+(.*)");
+            if(check2){
+                throw new MalformedNumberException("the input cannot contain both Arabic numbers and Elbonian numbers") ;
+            }
+            //this.toArabic();
         }
     }
+
 
     public HashMap<Character,Integer> getCharFreq(String s) {
         HashMap<Character,Integer> charFreq = new HashMap<Character,Integer>();
@@ -98,17 +107,10 @@ public class ElbonianArabicConverter {
      */
     public String toElbonian() throws ValueOutOfBoundsException {
         // TODO Fill in the method's body
-//        int numberAsInt = parseInt(number);
-//
-//        while (numberAsInt > 0 && numberAsInt < 4332){
-//
-//
-//        }
-        int arabic = tryParse(number);
-        if(arabic <= 0 || arabic > 4332){
-            throw new ValueOutOfBoundsException("the input Arabic number cannot be represented in the Elbonian number system");
-        }
-        String result = "MDXMI";
+        int numberAsInt = parseInt(number);
+
+
+        String result = "not a real result";
         return result;
     }
 }
