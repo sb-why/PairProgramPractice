@@ -45,6 +45,14 @@ public class ElbonianArabicConverter {
         this.number = number;
     }
 
+    /**
+     * check if the number is a malformed number of the value is out of bound
+     * @param number A string that represents either a Elbonian or Arabic number.
+     * @throws MalformedNumberException Thrown if the value is an Elbonian number that does not conform
+     * to the rules of the Elbonian number system. Leading and trailing spaces should not throw an error.
+     * @throws ValueOutOfBoundsException Thrown if the value is an Arabic number that cannot be represented
+     * in the Elbonian number system.
+     */
     public void check(String number) throws MalformedNumberException, ValueOutOfBoundsException {
         int convertedNumber = 0;
         try {
@@ -52,7 +60,6 @@ public class ElbonianArabicConverter {
             if(convertedNumber <= 0 || convertedNumber > 4332){
                 throw new ValueOutOfBoundsException("the input Arabic number cannot be represented in the Elbonian number system");
             }
-            //this.toElbonian();
         }catch (NumberFormatException e){
             if(number.equals("")){
                 throw new MalformedNumberException("the input does not qualified as an Elbonian numebr");
@@ -65,15 +72,14 @@ public class ElbonianArabicConverter {
             if(check2){
                 throw new MalformedNumberException("the input cannot contain both Arabic numbers and Elbonian numbers") ;
             }
-            //this.toArabic();
         }
     }
 
 
     /**
-     *
-     * @param s
-     * @return
+     * get characters' frequencies in a string
+     * @param s the string
+     * @return the hashmap of frequencies of characters
      */
     public HashMap<Character,Integer> getCharFreq(String s) {
         HashMap<Character,Integer> charFreq = new HashMap<Character,Integer>();
@@ -88,9 +94,9 @@ public class ElbonianArabicConverter {
     }
 
     /**
-     *
-     * @param c
-     * @return
+     * get the frequency of a character
+     * @param c the character
+     * @return frequency of a character
      */
     public int charFreq(char c){
         HashMap<Character,Integer> data = this.getCharFreq(this.number);
@@ -124,48 +130,77 @@ public class ElbonianArabicConverter {
         String result = "";
 
         //make array of all possible ???
-        int[] intArray = new int[]{1000,500,400,100,50,40,10,5,4,1};
+        int[] intArray = new int[]{1000, 500, 400, 100, 50, 40, 10, 5, 4, 1};
+
+        HashMap<Integer,Integer> limit = this.letterOccurrenceLimit();
 
         //iterate through array
-        do {
-            for(int i = 0; i< intArray.length; i++){
-                result = createElbonianNumber(result,intArray[i],numberAsInt);
-                int divider = numberAsInt/intArray[i];
-                numberAsInt = numberAsInt - (divider*intArray[i]);
+        while (numberAsInt > 0) {
+            for (int i = 0; i < intArray.length; i++) {
+                result = createElbonianNumber(result, intArray[i], numberAsInt);
+                int divider = numberAsInt / intArray[i];
+                int count = limit.get(intArray[i]);
+                int realDivider = (divider > count) ? count : divider;
+                numberAsInt = numberAsInt - (realDivider * intArray[i]);
             }
-        }while(numberAsInt > 0);
+        }
         return result;
     }
 
     /**
-     * holds the hashmap which defines associations between elbonia number and arabic number conversion
+     * holds the hashmap which defines associations between Elbonian number and Arabic number conversion
+     * @return the hashmap which defines associations between Elbonian number and Arabic number conversion
      */
-    public HashMap<Integer,String> elboniaLetterToValue(){
-        HashMap<Integer,String> conversionKey = new HashMap<Integer, String>();
-        conversionKey.put(1000, "M");
-        conversionKey.put(500, "D");
-        conversionKey.put(400, "e");
-        conversionKey.put(100, "C");
-        conversionKey.put(50, "L");
-        conversionKey.put(40, "m");
-        conversionKey.put(10, "X");
-        conversionKey.put(5, "V");
-        conversionKey.put(4, "w");
-        conversionKey.put(1, "I");
-        return conversionKey;
+    public HashMap<Integer,String> elboniaLetterToValue() {
+            HashMap<Integer, String> conversionKey = new HashMap<Integer, String>();
+            conversionKey.put(1000, "M");
+            conversionKey.put(500, "D");
+            conversionKey.put(400, "e");
+            conversionKey.put(100, "C");
+            conversionKey.put(50, "L");
+            conversionKey.put(40, "m");
+            conversionKey.put(10, "X");
+            conversionKey.put(5, "V");
+            conversionKey.put(4, "w");
+            conversionKey.put(1, "I");
+            return conversionKey;
+        }
+
+    /**
+     * creates the hashmap which defines associations between Elbonian number and the limit of its occurrence
+     * @return the hashmap which defines associations between Elbonian number and the limit of its occurrence
+     */
+        public HashMap<Integer,Integer> letterOccurrenceLimit(){
+        HashMap<Integer,Integer> limit = new HashMap<Integer, Integer>();
+        limit.put(1000,3);
+        limit.put(500,1);
+        limit.put(400,1);
+        limit.put(100,3);
+        limit.put(50,1);
+        limit.put(40,1);
+        limit.put(10,3);
+        limit.put(5,1);
+        limit.put(4,1);
+        limit.put(1,3);
+        return limit;
     }
 
+    /**
+     * Converts the number to an Elbonian numeral
+     * @param result the initial Elbonian numeral
+     * @param key the value of the numeral to convert to
+     * @param numberAsInt the number to convert
+     * @return the final Elbonian numeral
+     */
     public String createElbonianNumber(String result, int key, int numberAsInt){
         //call function to create hashmap for elbonia-arabic associations
         HashMap<Integer, String> conversionKey = this.elboniaLetterToValue();
-
+        HashMap<Integer,Integer> limit = this.letterOccurrenceLimit();
         int divider = numberAsInt/key;
-
-        for(int i = 0; i < divider; i++){
-            result = result + conversionKey.get(key);
-            numberAsInt = numberAsInt - key;
-        }
-
-        return result;
+            for(int i = 0; i < divider && i<limit.get(key); i++){
+                result = result + conversionKey.get(key);
+                numberAsInt = numberAsInt - key;
+            }
+            return result;
     }
 }
