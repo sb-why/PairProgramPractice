@@ -70,6 +70,11 @@ public class ElbonianArabicConverter {
     }
 
 
+    /**
+     *
+     * @param s
+     * @return
+     */
     public HashMap<Character,Integer> getCharFreq(String s) {
         HashMap<Character,Integer> charFreq = new HashMap<Character,Integer>();
         if (s != null) {
@@ -82,6 +87,11 @@ public class ElbonianArabicConverter {
         return charFreq;
     }
 
+    /**
+     *
+     * @param c
+     * @return
+     */
     public int charFreq(char c){
         HashMap<Character,Integer> data = this.getCharFreq(this.number);
         if(data.containsKey(c)){
@@ -111,11 +121,51 @@ public class ElbonianArabicConverter {
     public String toElbonian() throws ValueOutOfBoundsException {
         // TODO Fill in the method's body
         int numberAsInt = parseInt(number);
-        String result = "not a real result, ANSWER: ";
-        if(numberAsInt/1000 >= 3){
-           result = result+"MMM";
-           numberAsInt = numberAsInt%1000;
+        String result = "";
+
+        //make array of all possible ???
+        int[] intArray = new int[]{1000,500,400,100,50,40,10,5,4,1};
+
+        //iterate through array
+        do {
+            for(int i = 0; i< intArray.length; i++){
+                result = createElbonianNumber(result,intArray[i],numberAsInt);
+                int divider = numberAsInt/intArray[i];
+                numberAsInt = numberAsInt - (divider*intArray[i]);
+            }
+        }while(numberAsInt > 0);
+        return result;
+    }
+
+    /**
+     * holds the hashmap which defines associations between elbonia number and arabic number conversion
+     */
+    public HashMap<Integer,String> elboniaLetterToValue(){
+        HashMap<Integer,String> conversionKey = new HashMap<Integer, String>();
+        conversionKey.put(1000, "M");
+        conversionKey.put(500, "D");
+        conversionKey.put(400, "e");
+        conversionKey.put(100, "C");
+        conversionKey.put(50, "L");
+        conversionKey.put(40, "m");
+        conversionKey.put(10, "X");
+        conversionKey.put(5, "V");
+        conversionKey.put(4, "w");
+        conversionKey.put(1, "I");
+        return conversionKey;
+    }
+
+    public String createElbonianNumber(String result, int key, int numberAsInt){
+        //call function to create hashmap for elbonia-arabic associations
+        HashMap<Integer, String> conversionKey = this.elboniaLetterToValue();
+
+        int divider = numberAsInt/key;
+
+        for(int i = 0; i < divider; i++){
+            result = result + conversionKey.get(key);
+            numberAsInt = numberAsInt - key;
         }
+
         return result;
     }
 }
