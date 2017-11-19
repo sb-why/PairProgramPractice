@@ -67,6 +67,11 @@ public class ConverterTests {
         ElbonianArabicConverter test1 = new ElbonianArabicConverter("1 0");
     }
 
+    @Test(expected = MalformedNumberException.class)
+    public void checkMalformedNumber9() throws MalformedNumberException, ValueOutOfBoundsException {
+        ElbonianArabicConverter test1 = new ElbonianArabicConverter("mm");
+    }
+
 
 
 
@@ -151,5 +156,11 @@ public class ConverterTests {
     public void checkArabictoElbonianTest3() throws MalformedNumberException, ValueOutOfBoundsException {
         ElbonianArabicConverter converter = new ElbonianArabicConverter("2345");
         assertEquals("MMCCCmV", converter.toElbonian());
+    }
+
+    @Test
+    public void checkArabictoElbonianTest4() throws MalformedNumberException, ValueOutOfBoundsException {
+        ElbonianArabicConverter converter = new ElbonianArabicConverter("80");
+        assertEquals("LXXX", converter.toElbonian());
     }
 }
