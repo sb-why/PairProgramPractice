@@ -113,10 +113,15 @@ public class ElbonianArabicConverter {
      * @return An arabic value
      */
     public int toArabic() {
-        int result = charFreq('M')*1000 + charFreq('C')*100 + charFreq('D')*500 +
-                charFreq('e')*400 + charFreq('X')*10 + charFreq('L')*50 +
-                charFreq('m')*40 + charFreq('I') + charFreq('V')*5 + charFreq('w')*4;
-        return result;
+        try{
+            int numberAsInt = parseInt(number);
+            return numberAsInt;
+        }catch (NumberFormatException e){
+            int result = charFreq('M')*1000 + charFreq('C')*100 + charFreq('D')*500 +
+                    charFreq('e')*400 + charFreq('X')*10 + charFreq('L')*50 +
+                    charFreq('m')*40 + charFreq('I') + charFreq('V')*5 + charFreq('w')*4;
+            return result;
+        }
     }
 
     /**
@@ -150,8 +155,6 @@ public class ElbonianArabicConverter {
         }catch (NumberFormatException e){
             return this.number;
         }
-        //int numberAsInt = parseInt(number);
-
     }
 
     /**

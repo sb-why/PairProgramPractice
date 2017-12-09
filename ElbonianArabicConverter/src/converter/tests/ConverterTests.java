@@ -189,4 +189,10 @@ public class ConverterTests {
         ElbonianArabicConverter converter = new ElbonianArabicConverter("VII");
         assertEquals("VII", converter.toElbonian());
     }
+
+    @Test
+    public void moretest5() throws MalformedNumberException, ValueOutOfBoundsException{
+        ElbonianArabicConverter converter = new ElbonianArabicConverter("90");
+        assertEquals(90, converter.toArabic());
+    }
 }
