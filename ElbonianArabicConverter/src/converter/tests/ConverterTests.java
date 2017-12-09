@@ -163,4 +163,30 @@ public class ConverterTests {
         ElbonianArabicConverter converter = new ElbonianArabicConverter("80");
         assertEquals("LXXX", converter.toElbonian());
     }
+
+    //-----------------------------------------------------------------------
+
+    @Test
+    public void moretest1() throws MalformedNumberException, ValueOutOfBoundsException {
+        ElbonianArabicConverter converter = new ElbonianArabicConverter("XX");
+        assertEquals("XX", converter.toElbonian());
+    }
+
+    @Test
+    public void moretest2() throws MalformedNumberException, ValueOutOfBoundsException {
+        ElbonianArabicConverter converter = new ElbonianArabicConverter("Vw");
+        assertEquals("Vw", converter.toElbonian());
+    }
+
+    @Test
+    public void moretest3() throws MalformedNumberException, ValueOutOfBoundsException {
+        ElbonianArabicConverter converter = new ElbonianArabicConverter("emV");
+        assertEquals("emV", converter.toElbonian());
+    }
+
+    @Test
+    public void moretest4() throws MalformedNumberException, ValueOutOfBoundsException {
+        ElbonianArabicConverter converter = new ElbonianArabicConverter("VII");
+        assertEquals("VII", converter.toElbonian());
+    }
 }

@@ -126,25 +126,32 @@ public class ElbonianArabicConverter {
      */
     public String toElbonian() throws ValueOutOfBoundsException {
         // TODO Fill in the method's body
-        int numberAsInt = parseInt(number);
-        String result = "";
+        try{
+            int numberAsInt = parseInt(number);
+            String result = "";
 
-        //make array of all possible ???
-        int[] intArray = new int[]{1000, 500, 400, 100, 50, 40, 10, 5, 4, 1};
+            //make array of all possible ???
+            int[] intArray = new int[]{1000, 500, 400, 100, 50, 40, 10, 5, 4, 1};
 
-        HashMap<Integer,Integer> limit = this.letterOccurrenceLimit();
+            HashMap<Integer,Integer> limit = this.letterOccurrenceLimit();
 
-        //iterate through array
-        while (numberAsInt > 0) {
-            for (int i = 0; i < intArray.length; i++) {
-                result = createElbonianNumber(result, intArray[i], numberAsInt);
-                int divider = numberAsInt / intArray[i];
-                int count = limit.get(intArray[i]);
-                int realDivider = (divider > count) ? count : divider;
-                numberAsInt = numberAsInt - (realDivider * intArray[i]);
+            //iterate through array
+            while (numberAsInt > 0) {
+                for (int i = 0; i < intArray.length; i++) {
+                    result = createElbonianNumber(result, intArray[i], numberAsInt);
+                    int divider = numberAsInt / intArray[i];
+                    int count = limit.get(intArray[i]);
+                    int realDivider = (divider > count) ? count : divider;
+                    numberAsInt = numberAsInt - (realDivider * intArray[i]);
+                }
             }
+            return result;
+
+        }catch (NumberFormatException e){
+            return this.number;
         }
-        return result;
+        //int numberAsInt = parseInt(number);
+
     }
 
     /**
