@@ -57,7 +57,7 @@ public class ElbonianArabicConverter {
         int convertedNumber = 0;
         try {
             convertedNumber = parseInt(number);
-            if(convertedNumber <= 0 || convertedNumber > 4332){
+            if(convertedNumber <= 0 || convertedNumber > 3999){
                 throw new ValueOutOfBoundsException("the input Arabic number cannot be represented in the Elbonian number system");
             }
         }catch (NumberFormatException e){
